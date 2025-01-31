@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="card w-50 p-3 border mx-auto my-5">
+    <div class="d-flex mb-3 ">
+        <div class=""><h3>Inscription</h3></div>
+        <div class=" m-auto me-2"><label class="d-inline p-2 mb-5">{{ ux_icon ('bi:person',  {height : '30px', width : '30px'},) }}</label> </div>
+      </div>
+
+    {{ form_start(registrationForm, {'attr': {'class': 'form-horizontal'}}) }}
+        <div class="form-group ">
+            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(registrationForm.email) }}
+        </div>
+        <label for="basic-url" class="mb-3 text-secondary">Vous avez déjà un compte ? <a href="https://localhost/login" class="text-secondary">Connexion</a></label>
+        <div class="form-group">
+            {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+        <label for="basic-url" class="mb-3 text-secondary">{{ ux_icon ('bi:x-circle',  {height : '15px', width : '15px'},) }} 1 majuscule     {{ ux_icon ('bi:x-circle',  {height : '15px', width : '15px'},) }} 1 chiffre</label>
+
+        <div class="form-group mb-3">
+            {{ form_label(registrationForm.agreeTerms, 'Accepeter les termes', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_errors(registrationForm.agreeTerms) }}
+        </div>
+
+        <button type="submit" class="btn orange">Créer son compte</button>
+    {{ form_end(registrationForm) }}
+</div>
+{% endblock %}

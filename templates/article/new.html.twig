@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="card w-50 p-3 border mx-auto my-5">
-    <div class="card-header bg-dark text-white">
+    <div class="card-header ">
         <h3 class="m-auto">Créer un nouvel article</h3>
     </div>
     <br>
@@ -30,7 +30,7 @@
             {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
             {{ form_errors(form.date) }}
         </div>
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <button type="submit" class="btn orange">Enregistrer</button>
     {{ form_end(form) }}
 </div>
 {% endblock %}

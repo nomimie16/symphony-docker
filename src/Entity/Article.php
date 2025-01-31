@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,17 @@ class Article
 
     #[ORM\Column]
     private ?\DateTimeImmutable $date = null;
+
+    /**
+     * @var Collection<int, Commentaire>
+     */
+    #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'article_id')]
+    private Collection $comm;
+
+    public function __construct()
+    {
+        $this->comm = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +88,36 @@ class Article
     public function setDate(\DateTimeImmutable $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getComm(): Collection
+    {
+        return $this->comm;
+    }
+
+    public function addComm(Commentaire $comm): static
+    {
+        if (!$this->comm->contains($comm)) {
+            $this->comm->add($comm);
+            $comm->setArticleId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComm(Commentaire $comm): static
+    {
+        if ($this->comm->removeElement($comm)) {
+            // set the owning side to null (unless already changed)
+            if ($comm->getArticleId() === $this) {
+                $comm->setArticleId(null);
+            }
+        }
 
         return $this;
     }

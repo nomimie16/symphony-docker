@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentaire;
+
 use App\Form\ArticleType;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,8 +39,9 @@ class ArticleController extends AbstractController
         $entityManager->persist($article);
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
+        $this->addFlash('success', 'Article généré avec id : '. $article->getId() );
+        return $this->redirectToRoute('article_list');
         
-        return new Response('Saved new article with id ' . $article->getId());
     }
 
     #[Route('/article/list', name: 'article_list')]
@@ -59,9 +62,15 @@ class ArticleController extends AbstractController
         if (!$article) {
             throw $this->createNotFoundException('No article found for id ' . $id);
         }
-        $this->addFlash('success', 'Article charge !');
+
+        // Assuming you have a Comment entity related to the Article entity
+        $commentRepository = $entityManager->getRepository(Commentaire::class);
+        $commentaires = $commentRepository->findBy(['article_id' => $id]);
+
+        $this->addFlash('success', 'Article chargé !');
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'commentaires' => $commentaires,
         ]);
     }
 
@@ -81,7 +90,7 @@ class ArticleController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($article);
                 $entityManager->flush();
-
+                $this->addFlash('success', 'Article créé !');
                 return $this->redirectToRoute('article_list');
             }
 
@@ -101,9 +110,17 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('No article found for id ' . $id);
         }
 
+        // Remove associated comments
+        $commentRepository = $entityManager->getRepository(Commentaire::class);
+        $commentaires = $commentRepository->findBy(['article_id' => $id]);
+        foreach ($commentaires as $commentaire) {
+            $entityManager->remove($commentaire);
+        }
+
         $entityManager->remove($article);
         $entityManager->flush();
 
-        return new Response('Deleted article with id ' . $id);
+        $this->addFlash('delete', 'Article supprimé !');
+        return $this->redirectToRoute('article_list');
     }
 }

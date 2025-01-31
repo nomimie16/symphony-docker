@@ -33,5 +33,13 @@ class HomeController extends AbstractController
             'controller_name' => 'ArticleController',
         ]);
     }
+
+    #[Route('/commentaire', name: 'app_commentaire')]
+    public function commentaire(): Response
+    {
+        return $this->render('commentaire/index.html.twig', [
+            'controller_name' => 'CommentaireController',
+        ]);
+    }
     
 }

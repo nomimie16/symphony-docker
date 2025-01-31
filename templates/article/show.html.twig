@@ -3,9 +3,9 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-    <div class="card w-50 p-3 border mx-auto my-5">
+    <div class="card w-75 p-3 border mx-auto my-5">
         <div class="card-body">
-          <h2 class="card-title">{{ article.titre }} {{ article.id }}</h2>
+          <h2 class="card-title display-4 titre_article">{{ article.titre }} {{ article.id }}</h2>
           <p class="card-text">{{ article.texte }}</p>
           <p class="card-text"><small class="text-muted">Date : {{ article.date|date('Y-m-d H:i') }}</small></p>
           <div class="d-flex align-items-center">
@@ -18,8 +18,8 @@
             {% endif %}
           </div>
           <br>
-          <a href="#" class="btn btn-secondary">Modifier</a>
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+          <a href="#" class="btn gray">Modifier</a>
+          <button type="button" class="btn orange" data-bs-toggle="modal" data-bs-target="#deleteModal">
             Supprimer
           </button>
       </div>
@@ -31,13 +31,31 @@
         <div class="modal-content">
           <div class="modal-body">
             <h5>Êtes-vous sûr de vouloir supprimer cet article ?</h5>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="display:inline;">Annuler</button>
+            <button type="button" class="btn gray" data-bs-dismiss="modal" style="display:inline;">Annuler</button>
             <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" style="display:inline;">
-              <button type="submit" class="btn btn-danger">Supprimer</button>
+              <button type="submit" class="btn orange">Supprimer</button>
             </form>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Liste des commentaires -->
+    <div class="card w-75 p-3 border mx-auto my-5 ">
+        <div class="card-header rose text-white mb-20">
+            <h5 class="m-auto">Commentaires</h5>
+        </div>
+        <ul class="list-group list-group-flush ">
+            {% for commentaire in commentaires %}
+                <li class="list-group-item list-group-item-action commentaire">
+                    <h6 class="mb-1"><b>{{ commentaire.auteur }}</b></h6>
+                    <p class="mb-1">{{ commentaire.contenu }}</p>
+                    <small class="text-muted">{{ commentaire.date|date('Y-m-d H:i') }}</small>
+                </li>
+            {% else %}
+                <li class="list-group-item">Aucun commentaire pour cet article.</li>
+            {% endfor %}
+        </ul>
     </div>
 
    
