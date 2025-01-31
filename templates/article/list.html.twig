@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+<br>     
+<div class="container">
+    <table class="table table-striped table-hover table-bordered m-auto   ">
+        <caption>Liste des Articles</caption>
+        <thead class="table-dark font-serif text-uppercase">
+            <tr>
+                <th class="col-1">#</th>
+                <th class="col-1">Titre</th>
+                <th>Texte</th>
+                <th>Publication</th>
+                <th class="col-1">Date</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            {% for article in articles %}
+            <tr>
+                <td class="text-center">
+                    <a class="link-offset-2 link-underline " href="{{ path('article_show', {'id': article.id}) }}"><h3 class="text-muted">{{ article.id }}</h3></a>
+                </td>
+                <td>{{ article.titre }}</td>
+                <td style="max-width: 600px;">{{ article.texte }}</td>
+                <td class="text-center">
+                    {% if (article.publie) %}
+                    {{ ux_icon ('bi:bookmark-check',  {height : '40px', width : '40px'},) }}
+                    {% else %}
+                        {{ ux_icon  ('bi:bookmark',  {height : '40px', width : '40px'}) }}
+                    {% endif %}
+                </td>
+                <td>{{ article.date|date('Y-m-d H:i') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}  

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    <div class="card w-50 p-3 border mx-auto my-5">
+        <div class="card-body">
+          <h2 class="card-title">{{ article.titre }} {{ article.id }}</h2>
+          <p class="card-text">{{ article.texte }}</p>
+          <p class="card-text"><small class="text-muted">Date : {{ article.date|date('Y-m-d H:i') }}</small></p>
+          <div class="d-flex align-items-center">
+            {% if article.publie %}
+                <p class="card-text me-2"><small class="text-muted">Publié :</small></p>
+                {{ ux_icon('bi:bookmark-check', {height: '30px', width: '30px'}) }}
+            {% else %}
+                <p class="card-text me-2"><small class="text-muted">Non publié :</small></p>
+                {{ ux_icon('bi:bookmark', {height: '30px', width: '30px'}) }}
+            {% endif %}
+          </div>
+          <br>
+          <a href="#" class="btn btn-secondary">Modifier</a>
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            Supprimer
+          </button>
+      </div>
+    </div>
+
+    <!-- confirmation -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5>Êtes-vous sûr de vouloir supprimer cet article ?</h5>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="display:inline;">Annuler</button>
+            <form method="post" action="{{ path('article_delete', {'id': article.id}) }}" style="display:inline;">
+              <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+{% endblock %}

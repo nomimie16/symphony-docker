@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border">
+            <a class="navbar-brand ms-4" href="https://localhost/home">MySymphonyApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" href="https://localhost/lucky">Lucky</a>
+                <a class="nav-item nav-link" href="https://localhost/about">About</a>
+                <li class="nav-item dropdown">
+                    <a href="https://localhost/article" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Article</a>
+                    <div class="dropdown-menu">
+                        <a href="https://localhost/article/list" class="dropdown-item">Liste des articles</a>
+                        <a href="https://localhost/article/new" class="dropdown-item">Créer un article</a>
+                        <a href="https://localhost/article/generate" class="dropdown-item">Generate Article</a>
+                        <a href="https://localhost/commentaires/generate" class="dropdown-item">Generate commentaire</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#"class="dropdown-item">Trash</a>
+                    </div>
+                </li>
+              </div>
+            </div>
+        </nav>
+        {% block body %}{% endblock %}
+    </body>
+</html>
