@@ -27,7 +27,7 @@
                     <div class="dropdown-menu">
                         <a href="https://localhost/article/list" class="dropdown-item">Liste des articles</a>
                         <div class="dropdown-divider"></div>
-                        {% if app.user %}
+                        {% if is_granted('ROLE_ARTICLE_ADMIN') or  is_granted('ROLE_SUPER_ADMIN') %}
                             <a href="https://localhost/article/new" class="dropdown-item">Créer un article</a>
                             <a href="https://localhost/article/generate" class="dropdown-item">Générer un article</a>
 
@@ -57,6 +57,7 @@
                     </li>
                 {% endif %}
                   </div>
+                  
 
                     <form class="form-inline ms-auto me-3">
                       {% if app.user %}

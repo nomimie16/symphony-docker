@@ -1,4 +1,4 @@
-{% extends 'header.html.twig' %}
+{% extends 'base.html.twig' %}
 
 
 {% block title %}Hello AboutController!{% endblock %}
@@ -16,10 +16,12 @@
     
     <h1>{{ controller_name }} ! 🔍</h1>
 
-    This is My About Page
+    <p class="mb-2">This is My About Page</p>
     
     <ul>
-        <li>LIGNIER Noémie <code>nlignier@etu-univlittoral.fr</code></li>
+        {% if app.user %}
+            <li>LIGNIER Noémie <code>{{ app.user.email }}</code></li>
+        {% endif%}
         <li>IUT Informatique <code>62100 - Calais</code></li>
     </ul>
 

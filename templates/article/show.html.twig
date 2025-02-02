@@ -18,10 +18,12 @@
             {% endif %}
           </div>
           <br>
-          <a href="#" class="btn gray">Modifier</a>
-          <button type="button" class="btn orange" data-bs-toggle="modal" data-bs-target="#deleteModal">
-            Supprimer (admin)
-          </button>
+            <a href="{{ path('article_edit', {'id': article.id}) }}" class="btn gray">Modifier</a>
+          {% if is_granted('ROLE_ARTICLE_ADMIN') or  is_granted('ROLE_SUPER_ADMIN') %}
+            <button type="button" class="btn orange" data-bs-toggle="modal" data-bs-target="#deleteModal">
+              Supprimer
+            </button>
+          {% endif %}
       </div>
     </div>
 

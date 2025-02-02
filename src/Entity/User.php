@@ -76,6 +76,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $roles[] = 'ROLE_SUPER_ADMIN';
         }
 
+        if ($this->email === '832noemie@gmail.com') {
+            $roles[] = 'ROLE_ARTICLE_ADMIN';
+        }
         return array_unique($roles);
     }
 

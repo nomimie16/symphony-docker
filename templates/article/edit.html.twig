@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'Article{% endblock %}
+
+{% block body %}
+<div class="card w-50 p-3 border mx-auto my-5">
+    <div class="card-header ">
+        <h3 class="m-auto">Modifier l'article</h3>
+    </div>
+    <br>
+    
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        <div class="form-group mb-3">
+            {{ form_label(form.titre, 'Titre', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.titre) }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form_label(form.texte, 'Texte', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.texte, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+            {{ form_errors(form.texte) }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form_label(form.publie, 'Publier', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.publie, {'attr': {'class': 'form-check-input'}}) }}
+            {{ form_errors(form.publie) }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form_label(form.date, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.date, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.date) }}
+        </div>
+        <button type="submit" class="btn orange">Enregistrer les modifications</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

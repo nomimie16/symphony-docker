@@ -102,9 +102,36 @@ class ArticleController extends AbstractController
             ]);
         }
     
+    #[Route('/article/edit/{id}', name: 'article_edit')]
+
+    public function editArticle(int $id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Article::class);
+        $article = $repository->find($id);
+        if (!$article) {
+            throw $this->createNotFoundException('No article found for id ' . $id);
+        }
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Article modifié !');
+            return $this->redirectToRoute('article_list');
+        }
+
+        return $this->render('article/edit.html.twig', [
+            'form' => $form->createView(),
+            'article' => $article,
+        ]);
+    }
+
 
     #[Route('/article/delete/{id}', name: 'article_delete')]
     #[IsGranted('ROLE_SUPER_ADMIN', statusCode: 403, message: 'Vous n\'avez pas la permission de supprimer.')]
+    #[IsGranted('ROLE_ARTICLE_ADMIN', statusCode: 403, message: 'Vous n\'avez pas la permission de supprimer.')]
 
     public function deleteArticle(int $id, EntityManagerInterface $entityManager): Response
     {
