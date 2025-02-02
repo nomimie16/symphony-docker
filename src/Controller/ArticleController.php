@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Commentaire;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 use App\Form\ArticleType;
 
@@ -102,6 +104,8 @@ class ArticleController extends AbstractController
     
 
     #[Route('/article/delete/{id}', name: 'article_delete')]
+    #[IsGranted('ROLE_SUPER_ADMIN', statusCode: 403, message: 'Vous n\'avez pas la permission de supprimer.')]
+
     public function deleteArticle(int $id, EntityManagerInterface $entityManager): Response
     {
         $repository = $entityManager->getRepository(Article::class);

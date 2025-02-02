@@ -29,4 +29,20 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+
+    #[Route(path: '/profile', name: 'app_profile')]
+    public function profile(): Response
+    {
+        // Assuming you have a method to get the current user
+        $user = $this->getUser();
+
+        if (!$user) {
+            throw $this->createAccessDeniedException('You must be logged in to access this page.');
+        }
+
+        return $this->render('security/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }

@@ -23,26 +23,44 @@
                     <a href="https://localhost/article" class="nav-link dropdown-toggle nav-link active"" data-bs-toggle="dropdown">Article</a>
                     <div class="dropdown-menu">
                         <a href="https://localhost/article/list" class="dropdown-item">Liste des articles</a>
-                        <a href="https://localhost/article/new" class="dropdown-item">Créer un article</a>
-                        <a href="https://localhost/article/generate" class="dropdown-item">Generate Article</a>
                         <div class="dropdown-divider"></div>
-                        <a href="#"class="dropdown-item">Trash</a>
+                        <a href="https://localhost/article/new" class="dropdown-item">Créer un article</a>
+                        <a href="https://localhost/article/generate" class="dropdown-item">Générer un article</a>
+                        
                     </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="https://localhost/article" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">Commentaire</a>
                     <div class="dropdown-menu">
                         <a href="https://localhost/commentaire" class="dropdown-item ">Commentaires</a>
-                        <a href="https://localhost/commentaire/generate" class="dropdown-item">Generate commentaire</a>
                         <div class="dropdown-divider"></div>
-                        <a href="#"class="dropdown-item">Trash</a>
+                        <a href="https://localhost/commentaire/generate" class="dropdown-item">Generate commentaire</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="https://localhost/admin" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">Administration</a>
+                    <div class="dropdown-menu">
+                        <a href="https://localhost/admin" class="dropdown-item ">Administration Utilisateurs</a>
+                        <a href="https://localhost/admin/userslist" class="dropdown-item">Liste des utilisateurs</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="https://localhost/admin/test1" class="dropdown-item">Admin Test 1</a>
+                        <a href="https://localhost/admin/test2" class="dropdown-item">Admin Test 2</a>
+                        
                     </div>
                 </li>
                   </div>
 
                     <form class="form-inline ms-auto me-3">
-                      <a class="btn btn-sm btn-outline-light mx-1" href="https://localhost/login">Se connecter</a>
-                      <a class="btn btn-sm btn-outline-light mx-1" href="https://localhost/register">S'enregister</a>
+                      {% if app.user %}
+                          <a class="btn btn-sm btn-outline-light mx-1" href="https://localhost/logout">Se déconnecter</a>
+                      {% else %}
+                          <a class="btn btn-sm btn-outline-light mx-1" href="https://localhost/login">Se connecter</a>
+                      {% endif %}
+                      {% if app.user %}
+                        <a class="btn btn-sm btn-outline-light mx-1" href="https://localhost/profile">{{ app.user.email }}</a>
+                      {% else %}
+                          <a class="btn btn-sm btn-outline-light mx-1" href="https://localhost/register">S'enregister</a>
+                      {% endif %}
                       <a class="navbar-brand mx-1" href="#">
                         {{ ux_icon ('bi:question-circle',  {height : '25px', width : '25px'},) }}
                       </a>

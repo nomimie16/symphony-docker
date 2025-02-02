@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Hello ArticleController!{% endblock %}
+
+{% block body %}
+<br>     
+<div class="container mt-5">
+    <table class="table table-striped table-hover table-bordered m-auto   ">
+        <caption>Liste des Articles</caption>
+        <thead class="table-light font-serif text-uppercase">
+            <tr>
+                <th class="col-1 p-3 ">#</th>
+                <th class="col-4 p-3">Email</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            {% for user in users %}
+            <tr>
+            <td class="">
+                <a class="link-underline-warning" href="{{ path('user_show', {'id': user.id}) }}"><h3 class="text-muted">{{ user.id }}</h3></a>
+            </td>
+            <td>{{ user.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}  
