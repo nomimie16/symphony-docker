@@ -1,18 +1,25 @@
 {% extends 'base.html.twig' %}
 
-
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Articles{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1> Home Page ! ✅</h1>
-    <a href="https://localhost/home">Home</a>
-    This friendly message is coming from index function into {{ controller_name }} :p
-    
-</div>
+    {% for article in articles|slice(0, 3) %}
+        <div class="card w-75 p-3 border mx-auto my-5">
+            <div class="card-body">
+                <h2 class="card-title display-4 titre_article">{{ article.titre }} {{ article.id }}</h2>
+                <p class="card-text">{{ article.texte }}</p>
+                <p class="card-text"><small class="text-muted">Date : {{ article.date|date('Y-m-d H:i') }}</small></p>
+                <div class="d-flex align-items-center">
+                    {% if article.publie %}
+                        <p class="card-text me-2"><small class="text-muted">Publié :</small></p>
+                        {{ ux_icon('bi:bookmark-check', {height: '30px', width: '30px'}) }}
+                    {% else %}
+                        <p class="card-text me-2"><small class="text-muted">Non publié :</small></p>
+                        {{ ux_icon('bi:bookmark', {height: '30px', width: '30px'}) }}
+                    {% endif %}
+                </div>
+                <br>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

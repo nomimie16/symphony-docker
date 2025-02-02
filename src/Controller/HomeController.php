@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Article;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -9,14 +12,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
-    #[Route('/home', name: 'app_home')]
-    public function index(): Response
-    {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'controller_function' => 'index,'
-        ]);
-    }
+    // #[Route('/home', name: 'app_home')]
+    // public function index(): Response
+    // {
+    //     return $this->render('home/index.html.twig', [
+    //         'controller_name' => 'HomeController',
+    //         'controller_function' => 'index,'
+    //     ]);
+    // }
 
     #[Route('/about', name: 'app_about')]
     public function about(): Response
@@ -39,6 +42,25 @@ class HomeController extends AbstractController
     {
         return $this->render('commentaire/index.html.twig', [
             'controller_name' => 'CommentaireController',
+        ]);
+    }
+
+    #[Route('/home/', name: 'home')]
+    public function showArticle(?int $id, EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Article::class);
+        $article = $repository->findALL();
+        if (!$article) {
+            throw $this->createNotFoundException("No article found for id $id");
+        }
+
+        // Fetch the last 3 articles
+        $articleRepository = $entityManager->getRepository(Article::class);
+        $articles = $articleRepository->findBy([], ['id' => 'DESC'], 3);
+
+        return $this->render('home/index.html.twig', [
+            'controller_name' => 'HomeController',
+            'articles' => $articles,
         ]);
     }
     

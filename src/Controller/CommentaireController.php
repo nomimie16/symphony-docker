@@ -32,7 +32,7 @@ class CommentaireController extends AbstractController
 
         $article = $entityManager
         ->getRepository(Article::class)
-        ->find(19); // Ajustez 10 au nombre d'articles que vous avez
+        ->find(7); // Ajustez 10 au nombre d'articles que vous avez
 
         $commentaire->setArticleId($article);
 
@@ -46,7 +46,7 @@ class CommentaireController extends AbstractController
         $entityManager->persist($commentaire);
         // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
-        $this->addFlash('success', 'Commentaire avec id : ' );
+        $this->addFlash('success', 'Commentaire généré pour l\'article : 7' );
         return $this->redirectToRoute('article_list');
     }
 

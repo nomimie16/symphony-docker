@@ -15,6 +15,9 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark rose border border-light">
             <a class="navbar-brand ms-4" href="https://localhost/home">MySymphonyApp</a>
+            <a class="navbar-brand mr-2" href="https://localhost/home">
+                {{ ux_icon ('bi:backpack',  {height : '25px', width : '25px'},) }}
+              </a>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="https://localhost/lucky">Lucky</a>
@@ -24,8 +27,11 @@
                     <div class="dropdown-menu">
                         <a href="https://localhost/article/list" class="dropdown-item">Liste des articles</a>
                         <div class="dropdown-divider"></div>
-                        <a href="https://localhost/article/new" class="dropdown-item">Créer un article</a>
-                        <a href="https://localhost/article/generate" class="dropdown-item">Générer un article</a>
+                        {% if app.user %}
+                            <a href="https://localhost/article/new" class="dropdown-item">Créer un article</a>
+                            <a href="https://localhost/article/generate" class="dropdown-item">Générer un article</a>
+
+                        {% endif %}
                         
                     </div>
                 </li>
@@ -37,17 +43,19 @@
                         <a href="https://localhost/commentaire/generate" class="dropdown-item">Generate commentaire</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="https://localhost/admin" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">Administration</a>
-                    <div class="dropdown-menu">
-                        <a href="https://localhost/admin" class="dropdown-item ">Administration Utilisateurs</a>
-                        <a href="https://localhost/admin/userslist" class="dropdown-item">Liste des utilisateurs</a>
-                        <div class="dropdown-divider"></div>
-                        <a href="https://localhost/admin/test1" class="dropdown-item">Admin Test 1</a>
-                        <a href="https://localhost/admin/test2" class="dropdown-item">Admin Test 2</a>
-                        
-                    </div>
-                </li>
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a href="https://localhost/admin" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown">Administration</a>
+                        <div class="dropdown-menu">
+                            <a href="https://localhost/admin" class="dropdown-item ">Administration Utilisateurs</a>
+                            <a href="https://localhost/admin/userslist" class="dropdown-item">Liste des utilisateurs</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="https://localhost/admin/test1" class="dropdown-item">Admin Test 1</a>
+                            <a href="https://localhost/admin/test2" class="dropdown-item">Admin Test 2</a>
+                            
+                        </div>
+                    </li>
+                {% endif %}
                   </div>
 
                     <form class="form-inline ms-auto me-3">
